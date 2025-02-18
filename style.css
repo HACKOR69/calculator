@@ -12,12 +12,19 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image: url(/1be9ca905ccada0de163c7894d71628c.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .CalcMain {
   background: antiquewhite;
   height: 400px;
   width: 250px;
   padding: 20px;
+  background: rgba(255, 255, 255, 0.9); /* شفافية */
+  backdrop-filter: blur(10px); /* تأثير الزجاج */
+
   text-align: center;
   border-radius: 15px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
