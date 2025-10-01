@@ -1,34 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>calculator</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="CalcMain">
-      <input type="text" id="display" disabled />
-      <div class="buttons">
-        <div class="BtnOp" onclick="ClearDisplay()">c</div>
-        <div class="btn" onclick="appendToDisplay('7')">7</div>
-        <div class="btn" onclick="appendToDisplay('8')">8</div>
-        <div class="btn" onclick="appendToDisplay('9')">9</div>
-        <div class="BtnOp" onclick="appendToDisplay('/')">/</div>
-        <div class="btn" onclick="appendToDisplay('4')">4</div>
-        <div class="btn" onclick="appendToDisplay('5')">5</div>
-        <div class="btn" onclick="appendToDisplay('6')">6</div>
-        <div class="BtnOp" onclick="appendToDisplay('+')">+</div>
-        <div class="btn" onclick="appendToDisplay('1')">1</div>
-        <div class="btn" onclick="appendToDisplay('2')">2</div>
-        <div class="btn" onclick="appendToDisplay('3')">3</div>
-        <div class="BtnOp" onclick="appendToDisplay('*')">*</div>
-        <div class="BtnOp" onclick="appendToDisplay('-')">-</div>
-        <div class="btn" onclick="appendToDisplay('0')">0</div>
-        <div class="BtnOp" onclick="appendToDisplay('.')">.</div>
-        <div class="BtnOpRe" onclick="calculateResult()">=</div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Calculator</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .calculator {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      padding: 24px;
+      width: 340px;
+    }
+
+    .display {
+      background: #f3f4f6;
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 2rem;
+      text-align: right;
+      margin-bottom: 20px;
+      color: #111827;
+      min-height: 60px;
+      word-wrap: break-word;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background: #e5e7eb;
+      color: #111827;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: #d1d5db;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .operator {
+      background: #3b82f6;
+      color: #fff;
+    }
+
+    .operator:hover {
+      background: #2563eb;
+    }
+
+    .equal {
+      grid-column: span 2;
+      background: #10b981;
+      color: #fff;
+    }
+
+    .equal:hover {
+      background: #059669;
+    }
+
+    .clear {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .clear:hover {
+      background: #dc2626;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="clear">C</button>
+      <button>(</button>
+      <button>)</button>
+      <button class="operator">/</button>
+
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button class="operator">*</button>
+
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button class="operator">-</button>
+
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button class="operator">+</button>
+
+      <button>0</button>
+      <button>.</button>
+      <button class="equal">=</button>
     </div>
-    <script src="script.js"></script>
-  </body>
+  </div>
+
+  <script>
+    const display = document.getElementById("display");
+    const buttons = document.querySelectorAll("button");
+    let currentInput = "";
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const value = btn.textContent;
+
+        if (value === "C") {
+          currentInput = "";
+          display.textContent = "0";
+        } else if (value === "=") {
+          try {
+            currentInput = eval(currentInput).toString();
+            display.textContent = currentInput;
+          } catch {
+            display.textContent = "Error";
+            currentInput = "";
+          }
+        } else {
+          if (display.textContent === "0" && !isNaN(value)) {
+            currentInput = value;
+          } else {
+            currentInput += value;
+          }
+          display.textContent = currentInput;
+        }
+      });
+    });
+  </script>
+</body>
 </html>
